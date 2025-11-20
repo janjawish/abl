@@ -1,1017 +1,1025 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-    <!-- Favicon -->
-<link rel="icon" href="logo-abl-bl.ico" type="image/png">
-<link rel="apple-touch-icon" href="logo-abl-bl.ico">
-  <title>ABL – Expert import-export & Apporteur d’affaires</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="ABL - Expert et apporteur d’affaires, création de mises en relation et d’opportunités business sur mesure.">
-  
-  <!-- Police moderne -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --abl-blue: #3256ff;
-      --abl-blue-dark: #2437b3;
-      --abl-bg: #ffeaf7;
-      --abl-text: #1a1333;
-      --abl-white: #ffffff;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--abl-bg);
-      color: var(--abl-text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    /* ---------- Layout global ---------- */
-
-    .container {
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(14px);
-      background: linear-gradient(
-        to bottom,
-        rgba(255, 234, 247, 0.95),
-        rgba(255, 234, 247, 0.85)
-      );
-      border-bottom: 1px solid rgba(255, 255, 255, 0.7);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.7rem 0;
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .nav-logo img {
-      height: 42px;
-    }
-
-    .nav-logo-text {
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      color: var(--abl-blue-dark);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      font-size: 0.95rem;
-    }
-
-    .nav-links a {
-      position: relative;
-      padding-bottom: 0.1rem;
-    }
-
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0;
-      height: 2px;
-      background: var(--abl-blue);
-      transition: width 0.2s ease-out;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .nav-cta {
-      padding: 0.45rem 0.9rem;
-      border-radius: 999px;
-      background: var(--abl-blue);
-      color: var(--abl-white);
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      border: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      box-shadow: 0 10px 25px rgba(50, 86, 255, 0.35);
-      cursor: pointer;
-      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out,
-        background 0.15s ease-out;
-    }
-
-    .nav-cta span {
-      font-size: 1rem;
-    }
-
-    .nav-cta:hover {
-      transform: translateY(-1px);
-      background: var(--abl-blue-dark);
-      box-shadow: 0 18px 40px rgba(50, 86, 255, 0.45);
-    }
-
-    /* --- Burger mobile --- */
-
-    .nav-burger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-    }
-
-    .nav-burger span {
-      width: 22px;
-      height: 2px;
-      border-radius: 999px;
-      background: var(--abl-blue);
-      transition: transform 0.2s ease-out, opacity 0.2s ease-out;
-    }
-
-    .nav-burger.active span:nth-child(1) {
-      transform: translateY(7px) rotate(45deg);
-    }
-
-    .nav-burger.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .nav-burger.active span:nth-child(3) {
-      transform: translateY(-7px) rotate(-45deg);
-    }
-
-    /* ---------- Hero ---------- */
-
-    .hero {
-      padding: 3.5rem 0 3rem;
-    }
-
-    .hero-inner {
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-      gap: 2.5rem;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.25rem 0.7rem;
-      border-radius: 999px;
-      border: 1px solid rgba(50, 86, 255, 0.18);
-      background: rgba(255, 255, 255, 0.7);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-weight: 600;
-      color: var(--abl-blue-dark);
-      margin-bottom: 0.9rem;
-    }
-
-    .badge span {
-      font-size: 1rem;
-    }
-
-    h1 {
-      font-size: clamp(2.1rem, 4vw, 2.8rem);
-      line-height: 1.1;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-      color: var(--abl-blue-dark);
-    }
-
-    .hero-subtitle {
-      font-size: 1.05rem;
-      max-width: 520px;
-      opacity: 0.88;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-highlight {
-      display: inline-block;
-      background: linear-gradient(135deg, #3256ff, #9b5bff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      font-weight: 700;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.9rem;
-      margin-bottom: 1.4rem;
-    }
-
-    .btn-main {
-      padding: 0.8rem 1.5rem;
-      border-radius: 999px;
-      border: none;
-      background: linear-gradient(135deg, #3256ff, #7a48ff);
-      color: var(--abl-white);
-      font-weight: 600;
-      font-size: 0.95rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      box-shadow: 0 18px 40px rgba(50, 86, 255, 0.45);
-      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out,
-        filter 0.15s ease-out;
-    }
-
-    .btn-main span {
-      font-size: 1.1rem;
-    }
-
-    .btn-main:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.03);
-      box-shadow: 0 24px 60px rgba(50, 86, 255, 0.55);
-    }
-
-    .btn-ghost {
-      padding: 0.8rem 1.2rem;
-      border-radius: 999px;
-      border: 1px solid rgba(37, 26, 79, 0.2);
-      background: rgba(255, 255, 255, 0.5);
-      font-weight: 500;
-      font-size: 0.9rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: background 0.15s ease-out, transform 0.15s ease-out,
-        box-shadow 0.15s ease-out;
-    }
-
-    .btn-ghost span {
-      font-size: 1.1rem;
-    }
-
-    .btn-ghost:hover {
-      background: rgba(255, 255, 255, 0.85);
-      transform: translateY(-1px);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.06);
-    }
-
-    .hero-contact-line {
-      font-size: 0.95rem;
-      opacity: 0.8;
-    }
-
-    .hero-contact-line strong {
-      font-weight: 600;
-    }
-
-    .hero-contact-line a {
-      text-decoration: underline;
-      text-decoration-style: dotted;
-      text-underline-offset: 3px;
-    }
-
-    .hero-right {
-      position: relative;
-    }
-
-    .hero-card {
-      background: radial-gradient(circle at top left, #3256ff 0, #7a48ff 60%, #2437b3 100%);
-      border-radius: 1.8rem;
-      padding: 1.8rem 1.5rem;
-      color: var(--abl-white);
-      box-shadow: 0 28px 70px rgba(50, 86, 255, 0.7);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      width: 140%;
-      height: 140%;
-      left: -20%;
-      top: -40%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.25), transparent 52%);
-      opacity: 0.3;
-      transform: translateY(10px);
-    }
-
-    .hero-card-logo {
-      position: relative;
-      margin-bottom: 1.5rem;
-      display: inline-flex;
-      padding: 0.4rem 0.9rem;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(6px);
-      align-items: center;
-      gap: 0.7rem;
-    }
-
-    .hero-card-logo img {
-      height: 32px;
-    }
-
-    .hero-card-logo span {
-      font-size: 0.8rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      opacity: 0.9;
-    }
-
-    .hero-card-title {
-      position: relative;
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .hero-card-text {
-      position: relative;
-      font-size: 0.9rem;
-      opacity: 0.88;
-      margin-bottom: 1.4rem;
-    }
-
-    .hero-card-infos {
-      position: relative;
-      display: grid;
-      gap: 0.7rem;
-      font-size: 0.9rem;
-    }
-
-    .hero-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.3rem 0.7rem;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.18);
-      font-size: 0.8rem;
-    }
-
-    .hero-chip span {
-      font-size: 1rem;
-    }
-
-    /* ---------- Sections ---------- */
-
-    section {
-      padding: 2rem 0;
-    }
-
-    .section-title {
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--abl-blue-dark);
-      margin-bottom: 0.4rem;
-    }
-
-    .section-heading {
-      font-size: 1.4rem;
-      margin-bottom: 1.6rem;
-    }
-
-    .section-heading span {
-      color: var(--abl-blue-dark);
-    }
-
-    /* --- Services --- */
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.4rem;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.85);
-      border-radius: 1.2rem;
-      padding: 1.2rem 1.1rem 1.3rem;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        135deg,
-        rgba(50, 86, 255, 0.13),
-        transparent 55%
-      );
-      opacity: 0;
-      transition: opacity 0.2s ease-out;
-      pointer-events: none;
-    }
-
-    .card:hover::before {
-      opacity: 1;
-    }
-
-    .icon-pill {
-      width: 40px;
-      height: 40px;
-      border-radius: 999px;
-      background: rgba(50, 86, 255, 0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 0.8rem;
-      font-size: 1.3rem;
-    }
-
-    .card-title {
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-      font-size: 1rem;
-    }
-
-    .card-text {
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-
-    /* --- Process --- */
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.2rem;
-    }
-
-    .step {
-      display: flex;
-      gap: 0.9rem;
-      align-items: flex-start;
-    }
-
-    .step-number {
-      min-width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      background: var(--abl-blue);
-      color: var(--abl-white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 0.85rem;
-      box-shadow: 0 12px 24px rgba(50, 86, 255, 0.45);
-    }
-
-    .step-title {
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin-bottom: 0.2rem;
-    }
-
-    .step-text {
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-
-    /* --- Contact --- */
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      gap: 1.6rem;
-      align-items: start;
-    }
-
-    .contact-box {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 1.5rem;
-      padding: 1.4rem 1.3rem;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.9);
-    }
-
-    .contact-row {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      margin-bottom: 0.7rem;
-    }
-
-    .contact-row:last-child {
-      margin-bottom: 0;
-    }
-
-    .contact-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 999px;
-      background: rgba(50, 86, 255, 0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-    }
-
-    .contact-label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      opacity: 0.6;
-    }
-
-    .contact-value {
-      font-size: 0.98rem;
-      font-weight: 500;
-    }
-
-    .contact-value a {
-      text-decoration: underline;
-      text-decoration-style: dotted;
-      text-underline-offset: 3px;
-    }
-
-    .mini-note {
-      font-size: 0.8rem;
-      opacity: 0.75;
-      margin-top: 0.65rem;
-    }
-
-    form {
-      display: grid;
-      gap: 0.75rem;
-    }
-
-    label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      opacity: 0.7;
-    }
-
-    input,
-    textarea {
-      width: 100%;
-      padding: 0.7rem 0.75rem;
-      border-radius: 0.9rem;
-      border: 1px solid rgba(0, 0, 0, 0.07);
-      background: rgba(255, 255, 255, 0.9);
-      font-family: inherit;
-      font-size: 0.9rem;
-      outline: none;
-      transition: border 0.15s ease-out, box-shadow 0.15s ease-out,
-        background 0.15s ease-out;
-    }
-
-    input:focus,
-    textarea:focus {
-      border-color: rgba(50, 86, 255, 0.8);
-      box-shadow: 0 0 0 1px rgba(50, 86, 255, 0.12);
-      background: #ffffff;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
-
-    .contact-submit {
-      justify-self: start;
-      margin-top: 0.3rem;
-    }
-
-    footer {
-      padding: 1rem 0 1.3rem;
-      font-size: 0.8rem;
-      opacity: 0.7;
-      text-align: center;
-    }
-
-    /* ---------- Animations apparitions ---------- */
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .delay-1 {
-      transition-delay: 0.07s;
-    }
-
-    .delay-2 {
-      transition-delay: 0.15s;
-    }
-
-    .delay-3 {
-      transition-delay: 0.23s;
-    }
-
-    /* ---------- Responsive ---------- */
-
-    @media (max-width: 900px) {
-      .hero-inner {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .hero {
-        padding-top: 2.6rem;
-      }
-
-      .hero-right {
-        order: -1;
-      }
-
-      .services-grid,
-      .steps {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .contact-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 700px) {
-      .nav-links {
-        position: absolute;
-        inset-inline: 1.5rem;
-        top: 54px;
-        padding: 0.9rem 1rem;
-        border-radius: 1rem;
-        background: rgba(255, 255, 255, 0.97);
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.9rem;
-        transform-origin: top;
-        transform: scaleY(0.7);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.18s ease-out, transform 0.18s ease-out;
-      }
-
-      .nav-links.open {
-        opacity: 1;
-        pointer-events: auto;
-        transform: scaleY(1);
-      }
-
-      .nav-cta {
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+    <meta charset="UTF-8" />
+        <!-- Favicon -->
+    <link rel="icon" href="logo-abl-bl.ico" type="image/png">
+    <link rel="apple-touch-icon" href="logo-abl-bl.ico">
+    <title>ABL – Expert import-export & Apporteur d’affaires</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="ABL - Expert et apporteur d’affaires, création de mises en relation et d’opportunités business sur mesure.">
+    
+    <!-- Police moderne -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+        --abl-blue: #3256ff;
+        --abl-blue-dark: #2437b3;
+        --abl-bg: #ffeaf7;
+        --abl-text: #1a1333;
+        --abl-white: #ffffff;
+        }
+
+        * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        }
+
+        body {
+        font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--abl-bg);
+        color: var(--abl-text);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+        text-decoration: none;
+        color: inherit;
+        }
+
+        img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        }
+
+        /* ---------- Layout global ---------- */
+
+        .container {
         width: 100%;
-        justify-content: center;
-      }
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        }
 
-      .nav-burger {
+        header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(14px);
+        background: linear-gradient(
+            to bottom,
+            rgba(255, 234, 247, 0.95),
+            rgba(255, 234, 247, 0.85)
+        );
+        border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .nav {
         display: flex;
-      }
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.7rem 0;
+        }
 
-      .services-grid,
-      .steps {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-  </style>
-</head>
+        .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        }
 
-<body>
-  <header>
-    <div class="container nav">
-      <div class="nav-logo">
-        <!-- Mets ici ton logo -->
-        <img src="logo-abl.png" alt="Logo ABL" />
-        <div class="nav-logo-text"></div>
-      </div>
+        .nav-logo img {
+        height: 42px;
+        }
 
-      <nav class="nav-links" id="navLinks">
-        <a href="#services">Expertise</a>
-        <a href="#process">Méthode</a>
-        <a href="#contact">Contact</a>
-        <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
-          <span>🤝</span> Prendre contact
-        </button>
-      </nav>
+        .nav-logo-text {
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        color: var(--abl-blue-dark);
+        }
 
-      <div class="nav-burger" id="navBurger" aria-label="Ouvrir le menu">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
-  </header>
+        .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        font-size: 0.95rem;
+        }
 
-  <main>
-    <!-- ---------- HERO ---------- -->
-    <section class="hero">
-      <div class="container hero-inner">
-        <div class="hero-left reveal visible">
-          <div class="badge">
-            <span></span> Expert import-export & apporteur d’affaires
-          </div>
-          <h1>
-            Développons vos
-            <span class="hero-highlight">opportunités business</span>
-          </h1>
-          <p class="hero-subtitle">
-            ABL accompagne les dirigeants et porteurs de projets dans la
-            création de connexions <strong>ciblées</strong>, <strong>qualifiées</strong> et
-            <strong>rentables</strong>. Vous vous concentrez sur votre cœur de métier,
-            je m’occupe d’ouvrir les bonnes portes.
-          </p>
+        .nav-links a {
+        position: relative;
+        padding-bottom: 0.1rem;
+        }
 
-          <div class="hero-actions">
-            <button class="btn-main" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
-              <span></span> Discuter de votre projet
+        .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background: var(--abl-blue);
+        transition: width 0.2s ease-out;
+        }
+
+        .nav-links a:hover::after {
+        width: 100%;
+        }
+
+        .nav-cta {
+        padding: 0.45rem 0.9rem;
+        border-radius: 999px;
+        background: var(--abl-blue);
+        color: var(--abl-white);
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        box-shadow: 0 10px 25px rgba(50, 86, 255, 0.35);
+        cursor: pointer;
+        transition: transform 0.15s ease-out, box-shadow 0.15s ease-out,
+            background 0.15s ease-out;
+        }
+
+        .nav-cta span {
+        font-size: 1rem;
+        }
+
+        .nav-cta:hover {
+        transform: translateY(-1px);
+        background: var(--abl-blue-dark);
+        box-shadow: 0 18px 40px rgba(50, 86, 255, 0.45);
+        }
+
+        /* --- Burger mobile --- */
+
+        .nav-burger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        }
+
+        .nav-burger span {
+        width: 22px;
+        height: 2px;
+        border-radius: 999px;
+        background: var(--abl-blue);
+        transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+        }
+
+        .nav-burger.active span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+        }
+
+        .nav-burger.active span:nth-child(2) {
+        opacity: 0;
+        }
+
+        .nav-burger.active span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* ---------- Hero ---------- */
+
+        .hero {
+        padding: 3.5rem 0 3rem;
+        }
+
+        .hero-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+        gap: 2.5rem;
+        align-items: center;
+        }
+
+        .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.25rem 0.7rem;
+        border-radius: 999px;
+        border: 1px solid rgba(50, 86, 255, 0.18);
+        background: rgba(255, 255, 255, 0.7);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-weight: 600;
+        color: var(--abl-blue-dark);
+        margin-bottom: 0.9rem;
+        }
+
+        .badge span {
+        font-size: 1rem;
+        }
+
+        h1 {
+        font-size: clamp(2.1rem, 4vw, 2.8rem);
+        line-height: 1.1;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+        color: var(--abl-blue-dark);
+        }
+
+        .hero-subtitle {
+        font-size: 1.05rem;
+        max-width: 520px;
+        opacity: 0.88;
+        margin-bottom: 1.5rem;
+        }
+
+        .hero-highlight {
+        display: inline-block;
+        background: linear-gradient(135deg, #3256ff, #9b5bff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-weight: 700;
+        }
+
+        .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+        margin-bottom: 1.4rem;
+        }
+
+        .btn-main {
+        padding: 0.8rem 1.5rem;
+        border-radius: 999px;
+        border: none;
+        background: linear-gradient(135deg, #3256ff, #7a48ff);
+        color: var(--abl-white);
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        box-shadow: 0 18px 40px rgba(50, 86, 255, 0.45);
+        transition: transform 0.15s ease-out, box-shadow 0.15s ease-out,
+            filter 0.15s ease-out;
+        }
+
+        .btn-main span {
+        font-size: 1.1rem;
+        }
+
+        .btn-main:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.03);
+        box-shadow: 0 24px 60px rgba(50, 86, 255, 0.55);
+        }
+
+        .btn-ghost {
+        padding: 0.8rem 1.2rem;
+        border-radius: 999px;
+        border: 1px solid rgba(37, 26, 79, 0.2);
+        background: rgba(255, 255, 255, 0.5);
+        font-weight: 500;
+        font-size: 0.9rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: background 0.15s ease-out, transform 0.15s ease-out,
+            box-shadow 0.15s ease-out;
+        }
+
+        .btn-ghost span {
+        font-size: 1.1rem;
+        }
+
+        .btn-ghost:hover {
+        background: rgba(255, 255, 255, 0.85);
+        transform: translateY(-1px);
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .hero-contact-line {
+        font-size: 0.95rem;
+        opacity: 0.8;
+        }
+
+        .hero-contact-line strong {
+        font-weight: 600;
+        }
+
+        .hero-contact-line a {
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        text-underline-offset: 3px;
+        }
+
+        .hero-right {
+        position: relative;
+        }
+
+        .hero-card {
+        background: radial-gradient(circle at top left, #3256ff 0, #7a48ff 60%, #2437b3 100%);
+        border-radius: 1.8rem;
+        padding: 1.8rem 1.5rem;
+        color: var(--abl-white);
+        box-shadow: 0 28px 70px rgba(50, 86, 255, 0.7);
+        position: relative;
+        overflow: hidden;
+        }
+
+        .hero-card::before {
+        content: "";
+        position: absolute;
+        width: 140%;
+        height: 140%;
+        left: -20%;
+        top: -40%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.25), transparent 52%);
+        opacity: 0.3;
+        transform: translateY(10px);
+        }
+
+        .hero-card-logo {
+        position: relative;
+        margin-bottom: 1.5rem;
+        display: inline-flex;
+        padding: 0.4rem 0.9rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(6px);
+        align-items: center;
+        gap: 0.7rem;
+        }
+
+        .hero-card-logo img {
+        height: 32px;
+        }
+
+        .hero-card-logo span {
+        font-size: 0.8rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        opacity: 0.9;
+        }
+
+        .hero-card-title {
+        position: relative;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        }
+
+        .hero-card-text {
+        position: relative;
+        font-size: 0.9rem;
+        opacity: 0.88;
+        margin-bottom: 1.4rem;
+        }
+
+        .hero-card-infos {
+        position: relative;
+        display: grid;
+        gap: 0.7rem;
+        font-size: 0.9rem;
+        }
+
+        .hero-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.3rem 0.7rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.18);
+        font-size: 0.8rem;
+        }
+
+        .hero-chip span {
+        font-size: 1rem;
+        }
+
+        /* ---------- Sections ---------- */
+
+        section {
+        padding: 2rem 0;
+        }
+
+        .section-title {
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--abl-blue-dark);
+        margin-bottom: 0.4rem;
+        }
+
+        .section-heading {
+        font-size: 1.4rem;
+        margin-bottom: 1.6rem;
+        }
+
+        .section-heading span {
+        color: var(--abl-blue-dark);
+        }
+
+        /* --- Services --- */
+
+        .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.4rem;
+        }
+
+        .card {
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 1.2rem;
+        padding: 1.2rem 1.1rem 1.3rem;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        position: relative;
+        overflow: hidden;
+        }
+
+        .card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            135deg,
+            rgba(50, 86, 255, 0.13),
+            transparent 55%
+        );
+        opacity: 0;
+        transition: opacity 0.2s ease-out;
+        pointer-events: none;
+        }
+
+        .card:hover::before {
+        opacity: 1;
+        }
+
+        .icon-pill {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        background: rgba(50, 86, 255, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.8rem;
+        font-size: 1.3rem;
+        }
+
+        .card-title {
+        font-weight: 600;
+        margin-bottom: 0.4rem;
+        font-size: 1rem;
+        }
+
+        .card-text {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        }
+
+        /* --- Process --- */
+
+        .steps {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.2rem;
+        }
+
+        .step {
+        display: flex;
+        gap: 0.9rem;
+        align-items: flex-start;
+        }
+
+        .step-number {
+        min-width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        background: var(--abl-blue);
+        color: var(--abl-white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.85rem;
+        box-shadow: 0 12px 24px rgba(50, 86, 255, 0.45);
+        }
+
+        .step-title {
+        font-weight: 600;
+        font-size: 0.95rem;
+        margin-bottom: 0.2rem;
+        }
+
+        .step-text {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        }
+
+        /* --- Contact --- */
+
+        .contact-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+        gap: 1.6rem;
+        align-items: start;
+        }
+
+        .contact-box {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 1.5rem;
+        padding: 1.4rem 1.3rem;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-row {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-bottom: 0.7rem;
+        }
+
+        .contact-row:last-child {
+        margin-bottom: 0;
+        }
+
+        .contact-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        background: rgba(50, 86, 255, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        }
+
+        .contact-label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        opacity: 0.6;
+        }
+
+        .contact-value {
+        font-size: 0.98rem;
+        font-weight: 500;
+        }
+
+        .contact-value a {
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        text-underline-offset: 3px;
+        }
+
+        .mini-note {
+        font-size: 0.8rem;
+        opacity: 0.75;
+        margin-top: 0.65rem;
+        }
+
+        form {
+        display: grid;
+        gap: 0.75rem;
+        }
+
+        label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        opacity: 0.7;
+        }
+
+        input,
+        textarea {
+        width: 100%;
+        padding: 0.7rem 0.75rem;
+        border-radius: 0.9rem;
+        border: 1px solid rgba(0, 0, 0, 0.07);
+        background: rgba(255, 255, 255, 0.9);
+        font-family: inherit;
+        font-size: 0.9rem;
+        outline: none;
+        transition: border 0.15s ease-out, box-shadow 0.15s ease-out,
+            background 0.15s ease-out;
+        }
+
+        input:focus,
+        textarea:focus {
+        border-color: rgba(50, 86, 255, 0.8);
+        box-shadow: 0 0 0 1px rgba(50, 86, 255, 0.12);
+        background: #ffffff;
+        }
+
+        textarea {
+        resize: vertical;
+        min-height: 120px;
+        }
+
+        .contact-submit {
+        justify-self: start;
+        margin-top: 0.3rem;
+        }
+
+        footer {
+        padding: 1rem 0 1.3rem;
+        font-size: 0.8rem;
+        opacity: 0.7;
+        text-align: center;
+        
+        }
+        footer a {
+                    text-decoration: underline;
+        text-decoration-style: dotted;
+        text-underline-offset: 3px;
+        }
+
+        /* ---------- Animations apparitions ---------- */
+
+        .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+        }
+
+        .delay-1 {
+        transition-delay: 0.07s;
+        }
+
+        .delay-2 {
+        transition-delay: 0.15s;
+        }
+
+        .delay-3 {
+        transition-delay: 0.23s;
+        }
+
+        /* ---------- Responsive ---------- */
+
+        @media (max-width: 900px) {
+        .hero-inner {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .hero {
+            padding-top: 2.6rem;
+        }
+
+        .hero-right {
+            order: -1;
+        }
+
+        .services-grid,
+        .steps {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .contact-grid {
+            grid-template-columns: minmax(0, 1fr);
+        }
+        }
+
+        @media (max-width: 700px) {
+        .nav-links {
+            position: absolute;
+            inset-inline: 1.5rem;
+            top: 54px;
+            padding: 0.9rem 1rem;
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.97);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.9rem;
+            transform-origin: top;
+            transform: scaleY(0.7);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.18s ease-out, transform 0.18s ease-out;
+        }
+
+        .nav-links.open {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scaleY(1);
+        }
+
+        .nav-cta {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .nav-burger {
+            display: flex;
+        }
+
+        .services-grid,
+        .steps {
+            grid-template-columns: minmax(0, 1fr);
+        }
+        }
+    </style>
+    </head>
+
+    <body>
+    <header>
+        <div class="container nav">
+        <div class="nav-logo">
+            <!-- Mets ici ton logo -->
+            <img src="logo-abl.png" alt="Logo ABL" />
+            <div class="nav-logo-text"></div>
+        </div>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="#services">Expertise</a>
+            <a href="#process">Méthode</a>
+            <a href="#contact">Contact</a>
+            <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+            <span>🤝</span> Prendre contact
             </button>
-            <button class="btn-ghost" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">
-              <span></span> Voir les services
-            </button>
-          </div>
+        </nav>
 
-          <p class="hero-contact-line">
-            <strong>Contact direct :</strong>
-            <a href="tel:+33635094998">06 35 09 49 98</a> ·
-            <a href="mailto:contact.ablabl@gmail.com">contact.ablabl@gmail.com</a>
-          </p>
+        <div class="nav-burger" id="navBurger" aria-label="Ouvrir le menu">
+            <span></span><span></span><span></span>
         </div>
-
-        <div class="hero-right reveal delay-2">
-          <div class="hero-card">
-            <div class="hero-card-logo">
-              <img src="logo-abl-bl.png" alt="ABL" />
-              <span>Expert import-export & apporteur d’affaires</span>
-            </div>
-            <div class="hero-card-title">Une porte d’entrée vers vos futurs clients</div>
-            <div class="hero-card-text">
-              Je crée des mises en relation stratégiques entre entrepreneurs,
-              investisseurs, prestataires et partenaires pour accélérer vos
-              deals sans alourdir vos équipes commerciales.
-            </div>
-            <div class="hero-card-infos">
-              <div class="hero-chip">
-                <span></span> Mise en relation qualifiée
-              </div>
-              <div class="hero-chip">
-                <span></span> Approche orientée résultats
-              </div>
-              <div class="hero-chip">
-                <span></span> Accompagnement humain et réactif
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </section>
+    </header>
 
-    <!-- ---------- SERVICES ---------- -->
-    <section id="services">
-      <div class="container">
-        <p class="section-title reveal">Services</p>
-        <h2 class="section-heading reveal">
-          Comment ABL vous aide à <span>faire grandir votre activité</span>
-        </h2>
-
-        <div class="services-grid">
-          <article class="card reveal delay-1">
-            <div class="icon-pill">🤝</div>
-            <h3 class="card-title">Apport d’affaires ciblé</h3>
-            <p class="card-text">
-              Identification et mise en relation avec des prospects ou partenaires
-              cohérents avec votre positionnement, votre offre et votre rythme
-              de développement.
+    <main>
+        <!-- ---------- HERO ---------- -->
+        <section class="hero">
+        <div class="container hero-inner">
+            <div class="hero-left reveal visible">
+            <div class="badge">
+                <span></span> Expert import-export & apporteur d’affaires
+            </div>
+            <h1>
+                Développons vos
+                <span class="hero-highlight">opportunités business</span>
+            </h1>
+            <p class="hero-subtitle">
+                ABL accompagne les dirigeants et porteurs de projets dans la
+                création de connexions <strong>ciblées</strong>, <strong>qualifiées</strong> et
+                <strong>rentables</strong>. Vous vous concentrez sur votre cœur de métier,
+                je m’occupe d’ouvrir les bonnes portes.
             </p>
-          </article>
 
-          <article class="card reveal delay-2">
-            <div class="icon-pill">🎯</div>
-            <h3 class="card-title">Qualification & suivi</h3>
-            <p class="card-text">
-              Pré-qualification des besoins, cadrage des attentes et suivi des
-              opportunités pour ne vous présenter que des dossiers à forte
-              valeur ajoutée.
+            <div class="hero-actions">
+                <button class="btn-main" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                <span></span> Discuter de votre projet
+                </button>
+                <button class="btn-ghost" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">
+                <span></span> Voir les services
+                </button>
+            </div>
+
+            <p class="hero-contact-line">
+                <strong>Contact direct :</strong>
+                <a href="tel:+33635094998">06 35 09 49 98</a> ·
+                <a href="mailto:contact.ablabl@gmail.com">contact.ablabl@gmail.com</a>
             </p>
-          </article>
-
-          <article class="card reveal delay-3">
-            <div class="icon-pill">🌐</div>
-            <h3 class="card-title">Réseau & partenariats</h3>
-            <p class="card-text">
-              Activation d’un réseau d’entrepreneurs, d’investisseurs et
-              d’experts pour vous aider à ouvrir de nouveaux marchés et
-              sécuriser vos projets.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ---------- PROCESS ---------- -->
-    <section id="process">
-      <div class="container">
-        <p class="section-title reveal">Méthode</p>
-        <h2 class="section-heading reveal">
-          Un processus simple, efficace et <span>transparent</span>
-        </h2>
-
-        <div class="steps">
-          <div class="step reveal delay-1">
-            <div class="step-number">1</div>
-            <div>
-              <div class="step-title">Échange & compréhension</div>
-              <p class="step-text">
-                Nous clarifions ensemble votre offre, vos objectifs et le type
-                de profils que vous souhaitez toucher (clients, partenaires, investisseurs…).
-              </p>
-            </div>
-          </div>
-
-          <div class="step reveal delay-2">
-            <div class="step-number">2</div>
-            <div>
-              <div class="step-title">Ciblage & mise en relation</div>
-              <p class="step-text">
-                Je mobilise mon réseau et mon expertise pour vous présenter
-                des contacts pertinents, avec une introduction professionnelle
-                et préparée.
-              </p>
-            </div>
-          </div>
-
-          <div class="step reveal delay-3">
-            <div class="step-number">3</div>
-            <div>
-              <div class="step-title">Suivi & résultat</div>
-              <p class="step-text">
-                Nous suivons les opportunités créées, pour s’assurer que les
-                mises en relation sont réellement utiles et génératrices de
-                valeur pour chaque partie.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ---------- CONTACT ---------- -->
-    <section id="contact">
-      <div class="container">
-        <p class="section-title reveal">Contact</p>
-        <h2 class="section-heading reveal">
-          Parlons de vos <span>opportunités à créer</span>
-        </h2>
-
-        <div class="contact-grid">
-          <div class="contact-box reveal delay-1">
-            <div class="contact-row">
-              <div class="contact-icon">🤝</div>
-              <div>
-                <div class="contact-label">Intitulé</div>
-                <div class="contact-value">Expert import-export & apporteur d’affaires</div>
-              </div>
             </div>
 
-            <div class="contact-row">
-              <div class="contact-icon">📞</div>
-              <div>
-                <div class="contact-label">Téléphone</div>
-                <div class="contact-value">
-                  <a href="tel:+33635094998">06 35 09 49 98</a>
+            <div class="hero-right reveal delay-2">
+            <div class="hero-card">
+                <div class="hero-card-logo">
+                <img src="logo-abl-bl.png" alt="ABL" />
+                <span>Expert import-export & apporteur d’affaires</span>
                 </div>
-              </div>
-            </div>
-
-            <div class="contact-row">
-              <div class="contact-icon">✉️</div>
-              <div>
-                <div class="contact-label">E-mail</div>
-                <div class="contact-value">
-                  <a href="mailto:contact.ablabl@gmail.com">contact.ablabl@gmail.com</a>
+                <div class="hero-card-title">Une porte d’entrée vers vos futurs clients</div>
+                <div class="hero-card-text">
+                Je crée des mises en relation stratégiques entre entrepreneurs,
+                investisseurs, prestataires et partenaires pour accélérer vos
+                deals sans alourdir vos équipes commerciales.
                 </div>
-              </div>
+                <div class="hero-card-infos">
+                <div class="hero-chip">
+                    <span></span> Mise en relation qualifiée
+                </div>
+                <div class="hero-chip">
+                    <span></span> Approche orientée résultats
+                </div>
+                <div class="hero-chip">
+                    <span></span> Accompagnement humain et réactif
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </section>
+
+        <!-- ---------- SERVICES ---------- -->
+        <section id="services">
+        <div class="container">
+            <p class="section-title reveal">Services</p>
+            <h2 class="section-heading reveal">
+            Comment ABL vous aide à <span>faire grandir votre activité</span>
+            </h2>
+
+            <div class="services-grid">
+            <article class="card reveal delay-1">
+                <div class="icon-pill">🤝</div>
+                <h3 class="card-title">Apport d’affaires ciblé</h3>
+                <p class="card-text">
+                Identification et mise en relation avec des prospects ou partenaires
+                cohérents avec votre positionnement, votre offre et votre rythme
+                de développement.
+                </p>
+            </article>
+
+            <article class="card reveal delay-2">
+                <div class="icon-pill">🎯</div>
+                <h3 class="card-title">Qualification & suivi</h3>
+                <p class="card-text">
+                Pré-qualification des besoins, cadrage des attentes et suivi des
+                opportunités pour ne vous présenter que des dossiers à forte
+                valeur ajoutée.
+                </p>
+            </article>
+
+            <article class="card reveal delay-3">
+                <div class="icon-pill">🌐</div>
+                <h3 class="card-title">Réseau & partenariats</h3>
+                <p class="card-text">
+                Activation d’un réseau d’entrepreneurs, d’investisseurs et
+                d’experts pour vous aider à ouvrir de nouveaux marchés et
+                sécuriser vos projets.
+                </p>
+            </article>
+            </div>
+        </div>
+        </section>
+
+        <!-- ---------- PROCESS ---------- -->
+        <section id="process">
+        <div class="container">
+            <p class="section-title reveal">Méthode</p>
+            <h2 class="section-heading reveal">
+            Un processus simple, efficace et <span>transparent</span>
+            </h2>
+
+            <div class="steps">
+            <div class="step reveal delay-1">
+                <div class="step-number">1</div>
+                <div>
+                <div class="step-title">Échange & compréhension</div>
+                <p class="step-text">
+                    Nous clarifions ensemble votre offre, vos objectifs et le type
+                    de profils que vous souhaitez toucher (clients, partenaires, investisseurs…).
+                </p>
+                </div>
             </div>
 
-            <p class="mini-note">
-              Un besoin ponctuel, un projet en cours, une idée à tester ? Envoyez un message ou un vocal
-              et nous voyons ensemble si je peux vous aider.
-            </p>
-          </div>
+            <div class="step reveal delay-2">
+                <div class="step-number">2</div>
+                <div>
+                <div class="step-title">Ciblage & mise en relation</div>
+                <p class="step-text">
+                    Je mobilise mon réseau et mon expertise pour vous présenter
+                    des contacts pertinents, avec une introduction professionnelle
+                    et préparée.
+                </p>
+                </div>
+            </div>
 
-          <div class="contact-box reveal delay-2">
-            <form onsubmit="event.preventDefault(); alert('Merci ! Ce formulaire est une démo front-end. Configure l’envoi côté serveur ou via un service externe.');">
-              <div>
-                <label for="name">Nom / société</label>
-                <input id="name" type="text" placeholder="Votre nom, entreprise..." required />
-              </div>
-
-              <div>
-                <label for="email">E-mail</label>
-                <input id="email" type="email" placeholder="vous@example.com" required />
-              </div>
-
-              <div>
-                <label for="message">Message</label>
-                <textarea id="message" placeholder="Présentez rapidement votre besoin..."></textarea>
-              </div>
-
-              <button type="submit" class="btn-main contact-submit">
-                <span>🚀</span> Envoyer la demande
-              </button>
-            </form>
-          </div>
+            <div class="step reveal delay-3">
+                <div class="step-number">3</div>
+                <div>
+                <div class="step-title">Suivi & résultat</div>
+                <p class="step-text">
+                    Nous suivons les opportunités créées, pour s’assurer que les
+                    mises en relation sont réellement utiles et génératrices de
+                    valeur pour chaque partie.
+                </p>
+                </div>
+            </div>
+            </div>
         </div>
-      </div>
-    </section>
-  </main>
+        </section>
 
-  <footer>
-    © <span id="year"></span> ABL – Expert import-export & apporteur d’affaires. Tous droits réservés.
-  </footer>
+        <!-- ---------- CONTACT ---------- -->
+        <section id="contact">
+        <div class="container">
+            <p class="section-title reveal">Contact</p>
+            <h2 class="section-heading reveal">
+            Parlons de vos <span>opportunités à créer</span>
+            </h2>
 
-  <script>
-    // Année dynamique
-    document.getElementById("year").textContent = new Date().getFullYear();
+            <div class="contact-grid">
+            <div class="contact-box reveal delay-1">
+                <div class="contact-row">
+                <div class="contact-icon">🤝</div>
+                <div>
+                    <div class="contact-label">Intitulé</div>
+                    <div class="contact-value">Expert import-export & apporteur d’affaires</div>
+                </div>
+                </div>
 
-    // Burger menu
-    const navBurger = document.getElementById("navBurger");
-    const navLinks = document.getElementById("navLinks");
+                <div class="contact-row">
+                <div class="contact-icon">📞</div>
+                <div>
+                    <div class="contact-label">Téléphone</div>
+                    <div class="contact-value">
+                    <a href="tel:+33635094998">06 35 09 49 98</a>
+                    </div>
+                </div>
+                </div>
 
-    navBurger.addEventListener("click", () => {
-      navBurger.classList.toggle("active");
-      navLinks.classList.toggle("open");
-    });
+                <div class="contact-row">
+                <div class="contact-icon">✉️</div>
+                <div>
+                    <div class="contact-label">E-mail</div>
+                    <div class="contact-value">
+                    <a href="mailto:contact.ablabl@gmail.com">contact.ablabl@gmail.com</a>
+                    </div>
+                </div>
+                </div>
 
-    // Fermeture du menu lors d'un clic sur un lien
-    navLinks.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        navBurger.classList.remove("active");
-        navLinks.classList.remove("open");
-      });
-    });
+                <p class="mini-note">
+                Un besoin ponctuel, un projet en cours, une idée à tester ? Envoyez un message ou un vocal
+                et nous voyons ensemble si je peux vous aider.
+                </p>
+            </div>
 
-    // Apparition au scroll
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
+            <div class="contact-box reveal delay-2">
+                <form onsubmit="event.preventDefault(); alert('Merci ! Ce formulaire est une démo front-end. Configure l’envoi côté serveur ou via un service externe.');">
+                <div>
+                    <label for="name">Nom / société</label>
+                    <input id="name" type="text" placeholder="Votre nom, entreprise..." required />
+                </div>
+
+                <div>
+                    <label for="email">E-mail</label>
+                    <input id="email" type="email" placeholder="vous@example.com" required />
+                </div>
+
+                <div>
+                    <label for="message">Message</label>
+                    <textarea id="message" placeholder="Présentez rapidement votre besoin..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-main contact-submit">
+                    <span>🚀</span> Envoyer la demande
+                </button>
+                </form>
+            </div>
+            </div>
+        </div>
+        </section>
+    </main>
+
+    <footer>
+        © <span id="year"></span> ABL – Expert import-export & apporteur d’affaires.
+        Site développé par <a href="https://janjawish.fr/">Jan Jawish</a>
+    </footer>
+    
+
+    <script>
+        // Année dynamique
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Burger menu
+        const navBurger = document.getElementById("navBurger");
+        const navLinks = document.getElementById("navLinks");
+
+        navBurger.addEventListener("click", () => {
+        navBurger.classList.toggle("active");
+        navLinks.classList.toggle("open");
         });
-      },
-      {
-        threshold: 0.15,
-      }
-    );
 
-    document.querySelectorAll(".reveal").forEach((el) => {
-      observer.observe(el);
-    });
-  </script>
-</body>
-</html>
+        // Fermeture du menu lors d'un clic sur un lien
+        navLinks.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+            navBurger.classList.remove("active");
+            navLinks.classList.remove("open");
+        });
+        });
+
+        // Apparition au scroll
+        const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+            }
+            });
+        },
+        {
+            threshold: 0.15,
+        }
+        );
+
+        document.querySelectorAll(".reveal").forEach((el) => {
+        observer.observe(el);
+        });
+    </script>
+    </body>
+    </html>
